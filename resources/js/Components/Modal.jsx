@@ -1,3 +1,4 @@
+
 import {
     Dialog,
     DialogPanel,
@@ -31,7 +32,7 @@ export default function Modal({
             <Dialog
                 as="div"
                 id="modal"
-                className="fixed inset-0 z-[1050] flex items-center justify-center overflow-y-auto px-4 py-6 sm:px-0"
+                className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto px-4 py-6 sm:px-0"
                 onClose={close}
             >
                 <TransitionChild
@@ -42,8 +43,8 @@ export default function Modal({
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    {/* Dark overlay for the modal */}
-                    <div className="absolute inset-0 bg-gray-500/75 z-[1049]" />
+                    {/* Modal Overlay */}
+                    <div className="absolute inset-0 bg-gray-800/80 backdrop-blur-sm" />
                 </TransitionChild>
 
                 <TransitionChild
@@ -54,8 +55,9 @@ export default function Modal({
                     leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                     leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
+                    {/* Modal Content */}
                     <DialogPanel
-                        className={`relative z-[1051] w-full max-w-lg transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:mx-auto sm:w-full ${maxWidthClass}`}
+                        className={`w-full max-w-lg transform overflow-hidden rounded-xl bg-gradient-to-br from-gray-800 to-gray-900 shadow-2xl transition-all sm:mx-auto sm:w-full ${maxWidthClass}`}
                     >
                         {children}
                     </DialogPanel>

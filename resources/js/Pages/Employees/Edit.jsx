@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from '@inertiajs/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const Edit = ({ employee, onClose }) => {
     const { data, setData, put, errors } = useForm({
@@ -52,28 +54,22 @@ const Edit = ({ employee, onClose }) => {
     };
 
     return (
-        <div className="relative p-6 bg-white dark:bg-gray-800 rounded-lg shadow-2xl">
+        <div className="relative p-8 bg-gray-800 dark:bg-gray-900 text-gray-100 rounded-xl shadow-2xl max-w-md mx-auto overflow-hidden border border-gray-700">
             {/* Close Button */}
             <button
                 onClick={onClose}
-                className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 text-3xl font-bold focus:outline-none"
-                style={{
-                    padding: '0.25rem 0.5rem',
-                    lineHeight: '1',
-                    backgroundColor: 'transparent',
-                    borderRadius: '50%',
-                }}
+                className="absolute top-3 right-3 text-gray-400 hover:text-gray-200 text-2xl font-bold focus:outline-none transform transition hover:scale-110"
             >
-                &times;
+                <FontAwesomeIcon icon={faTimes} />
             </button>
 
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
+            <h2 className="text-2xl font-bold text-gray-100 mb-6 text-center">
                 Edit Employee
             </h2>
             <form onSubmit={handleSubmit} className="space-y-5">
                 {/* Name Field */}
                 <div className="flex flex-col">
-                    <label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="name" className="text-sm font-medium text-gray-300 mb-2">
                         Name
                     </label>
                     <input
@@ -83,14 +79,14 @@ const Edit = ({ employee, onClose }) => {
                         value={data.name}
                         onChange={handleNameChange}
                         required
-                        className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 shadow-sm"
+                        className="w-full p-3 bg-gray-700 text-gray-200 rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                     />
                     {errors.name && <span className="text-red-500 text-sm mt-1">{errors.name}</span>}
                 </div>
 
                 {/* Age Field */}
                 <div className="flex flex-col">
-                    <label htmlFor="age" className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="age" className="text-sm font-medium text-gray-300 mb-2">
                         Age
                     </label>
                     <input
@@ -100,14 +96,14 @@ const Edit = ({ employee, onClose }) => {
                         value={data.age}
                         onChange={handleAgeChange}
                         required
-                        className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 shadow-sm"
+                        className="w-full p-3 bg-gray-700 text-gray-200 rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                     />
                     {errors.age && <span className="text-red-500 text-sm mt-1">{errors.age}</span>}
                 </div>
 
                 {/* Position Field */}
                 <div className="flex flex-col">
-                    <label htmlFor="position" className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="position" className="text-sm font-medium text-gray-300 mb-2">
                         Position
                     </label>
                     <input
@@ -117,14 +113,14 @@ const Edit = ({ employee, onClose }) => {
                         value={data.position}
                         onChange={(e) => setData('position', e.target.value)}
                         required
-                        className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 shadow-sm"
+                        className="w-full p-3 bg-gray-700 text-gray-200 rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                     />
                     {errors.position && <span className="text-red-500 text-sm mt-1">{errors.position}</span>}
                 </div>
 
                 {/* Hired Date Field */}
                 <div className="flex flex-col">
-                    <label htmlFor="hired_date" className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    <label htmlFor="hired_date" className="text-sm font-medium text-gray-300 mb-2">
                         Hired Date
                     </label>
                     <input
@@ -133,7 +129,7 @@ const Edit = ({ employee, onClose }) => {
                         value={data.hired_date}
                         onChange={(e) => setData('hired_date', e.target.value)}
                         required
-                        className="w-full p-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 shadow-sm"
+                        className="w-full p-3 bg-gray-700 text-gray-200 rounded-lg shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
                     />
                     {dateError && <span className="text-red-500 text-sm mt-1">{dateError}</span>}
                     {errors.hired_date && <span className="text-red-500 text-sm mt-1">{errors.hired_date}</span>}
@@ -141,7 +137,7 @@ const Edit = ({ employee, onClose }) => {
 
                 <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-500 to-blue-700 text-white px-5 py-3 rounded-md shadow hover:from-blue-600 hover:to-blue-800 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800"
+                    className="w-full bg-blue-600 dark:bg-indigo-700 text-white font-bold py-3 mt-4 rounded-full shadow-lg hover:bg-blue-700 dark:hover:bg-indigo-800 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
                     Save
                 </button>

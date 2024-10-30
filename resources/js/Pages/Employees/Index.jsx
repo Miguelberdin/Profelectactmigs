@@ -5,7 +5,7 @@ import Modal from '@/Components/Modal';
 import Create from './Create';
 import Edit from './Edit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserPlus, faSearch, faEdit, faTrash, faSortUp, faSortDown } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faSearch, faEdit, faTrash, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 const Index = () => {
     const { employees, search } = usePage().props;
@@ -68,112 +68,111 @@ const Index = () => {
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-lg overflow-hidden">
-                        <div className="p-6 bg-gray-100 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+                    <div className="bg-white dark:bg-gray-800 shadow-2xl rounded-2xl overflow-hidden">
+                        <div className="p-6 bg-gray-100 dark:bg-gray-700 rounded-t-2xl border-b border-gray-200 dark:border-gray-600">
 
                             {/* Create New Employee Button */}
                             <div className="mb-4 flex flex-col md:flex-row justify-between items-center space-y-2 md:space-y-0">
                                 <button
                                     onClick={() => setCreateModalOpen(true)}
-                                    className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-5 py-3 rounded-md shadow hover:from-blue-600 hover:to-blue-800 transition transform hover:scale-105 flex items-center space-x-2"
+                                    className="bg-gradient-to-r from-blue-500 to-indigo-500 dark:from-blue-600 dark:to-indigo-600 text-white px-6 py-2 rounded-full shadow-lg hover:from-blue-600 hover:to-indigo-700 transition transform hover:scale-105 flex items-center space-x-2"
                                 >
                                     <FontAwesomeIcon icon={faUserPlus} />
                                     <span>Add New Employee</span>
                                 </button>
 
-
                                 {/* Sort and Search Bar */}
                                 <div className="flex flex-col md:flex-row items-center md:space-x-4 w-full md:w-auto space-y-2 md:space-y-0">
                                     {/* Sort By Dropdown */}
-                                    <div className="flex items-center space-x-2 bg-white dark:bg-gray-800 p-2 rounded-lg shadow-md">
-                                        <span className="text-gray-700 dark:text-gray-300 font-medium">Sort:</span>
+                                    <div className="flex items-center space-x-2">
                                         <select
                                             value={sortBy}
                                             onChange={handleSortChange}
-                                            className="bg-gray-100 dark:bg-gray-900 dark:text-gray-200 rounded-md px-3 py-2 border-2 border-transparent focus:border-blue-500 focus:ring-2 focus:ring-blue-500 transition transform hover:scale-105"
+                                            className="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-full px-5 py-3 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transition appearance-none"
                                         >
-                                            <option value="">Choose...</option>
+                                            <option value="">Sort By...</option>
                                             <option value="name">Name</option>
                                             <option value="age">Age</option>
                                             <option value="hired_date">Hired Date</option>
                                         </select>
                                         <button
                                             onClick={toggleSortDirection}
-                                            className="flex items-center justify-center bg-blue-500 text-white rounded-md p-2 shadow-md hover:bg-blue-600 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                            className="text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition transform hover:scale-110 focus:outline-none"
                                             aria-label="Toggle Sort Direction"
                                         >
                                             {sortDirection === 'asc' ? (
-                                                <FontAwesomeIcon icon={faSortUp} />
+                                                <FontAwesomeIcon icon={faArrowUp} />
                                             ) : (
-                                                <FontAwesomeIcon icon={faSortDown} />
+                                                <FontAwesomeIcon icon={faArrowDown} />
                                             )}
                                         </button>
-
                                     </div>
 
                                     {/* Search Bar */}
-                                    <form onSubmit={handleSearch} className="flex items-center w-full md:w-auto relative">
+                                    <form onSubmit={handleSearch} className="relative flex items-center w-full md:w-auto">
                                         <input
                                             type="text"
                                             placeholder="Search..."
                                             value={data.search}
                                             onChange={(e) => setData('search', e.target.value)}
-                                            className="bg-gray-200 dark:bg-gray-800 dark:text-gray-200 rounded-lg p-3 w-full pr-10 border-2 border-transparent focus:border-blue-500 focus:ring-2 focus:ring-blue-500 shadow transition transform hover:scale-105"
+                                            className="w-full md:w-64 bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 rounded-full px-5 py-3 border border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-md transition"
                                         />
                                         <button
                                             type="submit"
-                                            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition"
+                                            className="absolute right-4 text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 transition transform hover:scale-110 focus:outline-none"
                                             aria-label="Search"
                                         >
                                             <FontAwesomeIcon icon={faSearch} size="lg" />
                                         </button>
                                     </form>
-
-
                                 </div>
                             </div>
 
                             {/* Employee Table */}
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-                                    <thead className="bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-950 dark:to-gray-800">
+                            <div className="overflow-x-auto px-4 pb-4">
+                                <table className="min-w-full bg-white dark:bg-gray-800 rounded-lg shadow-md divide-y divide-gray-200 dark:divide-gray-700">
+                                    <thead className="bg-gradient-to-r from-blue-100 dark:from-gray-700 to-gray-200 dark:to-gray-800">
                                         <tr>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Name</th>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Age</th>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Position</th>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Hired Date</th>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Created By</th>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Created At</th>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Updated At</th>
-                                            <th className="p-3 text-left font-semibold text-gray-700 dark:text-gray-300 whitespace-nowrap">Actions</th>
+                                            <th className="p-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Name</th>
+                                            <th className="p-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Age</th>
+                                            <th className="p-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Position</th>
+                                            <th className="p-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Hired Date</th>
+                                            <th className="p-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Created By</th>
+                                            <th className="p-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Created At</th>
+                                            <th className="p-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-300">Updated At</th>
+                                            <th className="p-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-300">Actions</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {employees.data.map((employee) => (
-                                            <tr key={employee.id} className="hover:bg-blue-50 dark:hover:bg-gray-700 border-b border-gray-200 dark:border-gray-700 transition-shadow hover:shadow-md">
-                                                <td className="p-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{employee.name}</td>
-                                                <td className="p-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{employee.age}</td>
-                                                <td className="p-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{employee.position}</td>
-                                                <td className="p-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{new Date(employee.hired_date).toLocaleDateString()}</td>
-                                                <td className="p-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{employee.creator ? employee.creator.name : 'N/A'}</td>
-                                                <td className="p-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{new Date(employee.created_at).toLocaleString()}</td>
-                                                <td className="p-3 text-gray-800 dark:text-gray-200 whitespace-nowrap">{new Date(employee.updated_at).toLocaleString()}</td>
-                                                <td className="p-3 flex space-x-4">
+                                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-100 dark:divide-gray-700">
+                                        {employees.data.map((employee, index) => (
+                                            <tr
+                                                key={employee.id}
+                                                className={`hover:bg-blue-50 dark:hover:bg-blue-900 transition duration-300 ease-in-out transform hover:scale-[1.02] ${
+                                                    index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-700'
+                                                }`}
+                                            >
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{employee.name}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{employee.age}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{employee.position}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{new Date(employee.hired_date).toLocaleDateString()}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{employee.creator ? employee.creator.name : 'N/A'}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{new Date(employee.created_at).toLocaleString()}</td>
+                                                <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{new Date(employee.updated_at).toLocaleString()}</td>
+                                                <td className="p-4 flex justify-center space-x-2">
                                                     <button
                                                         onClick={() => openEditModal(employee)}
-                                                        className="text-yellow-500 hover:text-yellow-600 transition transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                                        className="bg-yellow-500 text-white hover:bg-yellow-600 transition rounded-full p-2 shadow-md transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                                                         aria-label="Edit"
                                                     >
-                                                        <FontAwesomeIcon icon={faEdit} size="lg" />
+                                                        <FontAwesomeIcon icon={faEdit} />
                                                     </button>
                                                     <button
                                                         onClick={() => openDeleteModal(employee)}
-                                                        className="text-red-500 hover:text-red-600 transition transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                                        className="bg-red-500 text-white hover:bg-red-600 transition rounded-full p-2 shadow-md transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-400"
                                                         aria-label="Delete"
                                                     >
-                                                        <FontAwesomeIcon icon={faTrash} size="lg" />
+                                                        <FontAwesomeIcon icon={faTrash} />
                                                     </button>
-
                                                 </td>
                                             </tr>
                                         ))}
@@ -182,24 +181,19 @@ const Index = () => {
                             </div>
 
                             {/* Pagination Links */}
-                            <div className="mt-4 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
+                            <div className="mt-6 flex flex-col sm:flex-row justify-between items-center space-y-2 sm:space-y-0">
                                 <span className="text-gray-600 dark:text-gray-200">Page {employees.current_page} of {employees.last_page}</span>
-                                <div className="flex space-x-2">
+                                <div className="flex space-x-1">
                                     {employees.links.map((link, index) => (
                                         <Link
                                             key={index}
                                             href={link.url}
-                                            className={`
-                    px-4 py-2 rounded-md shadow-md transition transform hover:scale-105
-                    ${link.active ? 'bg-blue-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100 hover:bg-blue-500 hover:text-white'}
-                    ${link.url === null ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}
-                `}
+                                            className={`px-4 py-2 rounded-full shadow-md transition-transform hover:scale-110 ${link.active ? 'bg-blue-600 dark:bg-blue-700 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-blue-200 dark:hover:bg-blue-800'}`}
                                             dangerouslySetInnerHTML={{ __html: link.label }}
                                         />
                                     ))}
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -215,28 +209,27 @@ const Index = () => {
                 </Modal>
             )}
             <Modal show={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)} maxWidth="sm">
-                <div className="p-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
-                    <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Confirm Delete</h2>
-                    <p className="text-base text-gray-600 dark:text-gray-400 text-center leading-relaxed">
-                        Are you sure you want to delete <strong className="text-gray-800 dark:text-gray-200">{selectedEmployee?.name}</strong>? This action cannot be undone.
+                <div className="p-6 bg-white dark:bg-gray-800 rounded-md">
+                    <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Confirm Delete</h2>
+                    <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                        Are you sure you want to delete <strong>{selectedEmployee?.name}</strong>? This action cannot be undone.
                     </p>
-                    <div className="mt-8 flex justify-center space-x-4">
+                    <div className="mt-6 flex justify-end space-x-2">
                         <button
                             onClick={() => setDeleteModalOpen(false)}
-                            className="bg-gradient-to-r from-gray-500 to-gray-700 text-white px-6 py-3 rounded-lg shadow-md hover:from-gray-600 hover:to-gray-800 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-offset-gray-800"
+                            className="px-4 py-2 bg-gray-500 text-white rounded-full hover:bg-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 transition"
                         >
                             Cancel
                         </button>
                         <button
                             onClick={confirmDelete}
-                            className="bg-gradient-to-r from-red-500 to-red-700 text-white px-6 py-3 rounded-lg shadow-md hover:from-red-600 hover:to-red-800 transition transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:focus:ring-offset-gray-800"
+                            className="px-4 py-2 bg-red-500 text-white rounded-full hover:bg-red-600 dark:bg-red-700 dark:hover:bg-red-600 transition"
                         >
                             Delete
                         </button>
                     </div>
                 </div>
             </Modal>
-
         </AuthenticatedLayout>
     );
 };
