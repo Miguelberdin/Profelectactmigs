@@ -25,8 +25,8 @@ export default function AuthenticatedLayout({ header, children }) {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-            <nav className="border-b border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
+        <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 relative">
+            <nav className="border-b border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 z-40 relative">
                 <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 justify-between items-center">
                         {/* Logo Section */}
@@ -36,25 +36,23 @@ export default function AuthenticatedLayout({ header, children }) {
                             </Link>
                         </div>
 
-                       {/* Desktop Navigation Links */}
-                       <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                    className="text-gray-800 dark:text-gray-100"
-                                >
-                                    Dashboard
-                                </NavLink>
-                                <NavLink
-                                    href={route('employees.index')}
-                                    active={route().current('employees.index')}
-                                    className="text-gray-800 dark:text-gray-100"
-                                >
-                                    Employees
-                                </NavLink>
-                            </div>
-
-
+                        {/* Desktop Navigation Links */}
+                        <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <NavLink
+                                href={route('dashboard')}
+                                active={route().current('dashboard')}
+                                className="text-gray-800 dark:text-gray-100"
+                            >
+                                Dashboard
+                            </NavLink>
+                            <NavLink
+                                href={route('employees.index')}
+                                active={route().current('employees.index')}
+                                className="text-gray-800 dark:text-gray-100"
+                            >
+                                Employees
+                            </NavLink>
+                        </div>
 
                         {/* Right Section with Dark Mode and Profile Dropdown */}
                         <div className="ml-auto hidden sm:flex items-center space-x-6">
@@ -85,7 +83,7 @@ export default function AuthenticatedLayout({ header, children }) {
                         </div>
 
                         {/* Mobile Menu Button */}
-                        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="sm:hidden p-2 text-gray-500 dark:text-gray-300 focus:outline-none">
+                        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="sm:hidden p-2 text-gray-500 dark:text-gray-300 focus:outline-none z-50">
                             <svg className="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
                             </svg>
@@ -94,68 +92,59 @@ export default function AuthenticatedLayout({ header, children }) {
                 </div>
 
                 {/* Mobile Navigation Menu */}
-{isMobileMenuOpen && (
-    <div className="sm:hidden absolute top-16 right-4 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-md p-4 space-y-4">
-        <NavLink
-            href={route('dashboard')}
-            active={route().current('dashboard')}
-            className="relative block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
-        >
-            Dashboard
-            {route().current('dashboard') && (
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform translate-y-1" />
-            )}
-        </NavLink>
-        <NavLink
-            href={route('employees.index')}
-            active={route().current('employees.index')}
-            className="relative block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
-        >
-            Employees
-            {route().current('employees.index') && (
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform translate-y-1" />
-            )}
-        </NavLink>
+                {isMobileMenuOpen && (
+                    <div className="sm:hidden absolute top-16 right-4 w-48 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg rounded-md p-4 space-y-4 z-[9999]">
+                        <NavLink
+                            href={route('dashboard')}
+                            active={route().current('dashboard')}
+                            className="relative block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
+                        >
+                            Dashboard
+                        </NavLink>
+                        <NavLink
+                            href={route('employees.index')}
+                            active={route().current('employees.index')}
+                            className="relative block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
+                        >
+                            Employees
+                        </NavLink>
 
-        {/* Dark Mode Toggle with Matching Text Size */}
-        <div className="flex items-center justify-between mx-auto w-full px-4 py-2 rounded">
-            <span className="text-sm text-gray-900 dark:text-gray-100">
-                {isDarkMode ? 'Dark Mode' : 'Light Mode'}
-            </span>
-            <div
-                onClick={toggleDarkMode}
-                className="relative w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer flex items-center justify-between p-1"
-            >
-                <div
-                    className={`absolute top-0.5 left-0.5 w-5 h-5 flex items-center justify-center rounded-full text-xs transition-transform duration-300 transform ${isDarkMode ? 'translate-x-6 bg-gray-900 text-white' : 'bg-yellow-400 text-yellow-700'
-                        }`}
-                >
-                    {isDarkMode ? '🌙' : '🌞'}
-                </div>
-            </div>
-        </div>
+                        {/* Dark Mode Toggle with Matching Text Size */}
+                        <div className="flex items-center justify-between mx-auto w-full px-4 py-2 rounded">
+                            <span className="text-sm text-gray-900 dark:text-gray-100">
+                                {isDarkMode ? 'Dark Mode' : 'Light Mode'}
+                            </span>
+                            <div
+                                onClick={toggleDarkMode}
+                                className="relative w-12 h-6 bg-gray-300 dark:bg-gray-600 rounded-full cursor-pointer flex items-center justify-between p-1"
+                            >
+                                <div
+                                    className={`absolute top-0.5 left-0.5 w-5 h-5 flex items-center justify-center rounded-full text-xs transition-transform duration-300 transform ${isDarkMode ? 'translate-x-6 bg-gray-900 text-white' : 'bg-yellow-400 text-yellow-700'
+                                        }`}
+                                >
+                                    {isDarkMode ? '🌙' : '🌞'}
+                                </div>
+                            </div>
+                        </div>
 
-        {/* Profile Links */}
-        <NavLink
-            href={route('profile.edit')}
-            active={route().current('profile.edit')}
-            className="relative block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
-        >
-            Profile
-            {route().current('profile.edit') && (
-                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-blue-500 transform translate-y-1" />
-            )}
-        </NavLink>
-        <NavLink
-            href={route('logout')}
-            method="post"
-            as="button"
-            className="block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
-        >
-            Log Out
-        </NavLink>
-    </div>
-)}
+                        {/* Profile Links */}
+                        <NavLink
+                            href={route('profile.edit')}
+                            active={route().current('profile.edit')}
+                            className="relative block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
+                        >
+                            Profile
+                        </NavLink>
+                        <NavLink
+                            href={route('logout')}
+                            method="post"
+                            as="button"
+                            className="block w-full text-left px-4 py-2 rounded text-gray-900 dark:text-gray-100"
+                        >
+                            Log Out
+                        </NavLink>
+                    </div>
+                )}
             </nav>
 
             {/* Header */}

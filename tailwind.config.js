@@ -11,7 +11,7 @@ export default {
     ],
 
     // Enable class-based dark mode
-    darkMode: 'class', // Add this line
+    darkMode: 'class', 
 
     theme: {
         extend: {

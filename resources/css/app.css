@@ -66,4 +66,11 @@
     background-color: #1f2937;
   }
   
-  
+  /* CSS */
+.table-hover-gradient {
+  background: linear-gradient(to right, #ffffff, #f9fafb);
+  transition: background 0.5s ease-in-out;
+}
+.table-hover-gradient:hover {
+  background: linear-gradient(to right, #f1f5f9, #e2e8f0);
+}
