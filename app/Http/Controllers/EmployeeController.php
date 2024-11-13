@@ -11,7 +11,7 @@ class EmployeeController extends Controller
     public function index(Request $request)
 {
     $search = $request->input('search');
-    $sortBy = $request->input('sort_by', 'name'); // Default sort by 'name'
+    $sortBy = $request->input('sort_by'); 
     $sortDirection = $request->input('sort_direction', 'asc'); // Default sort direction 'asc'
 
     $employees = Employee::with('creator')
