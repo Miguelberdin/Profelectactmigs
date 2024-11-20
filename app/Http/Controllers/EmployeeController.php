@@ -60,7 +60,6 @@ class EmployeeController extends Controller
             'position' => 'required|string|max:255',
             'hired_date' => 'required|date|before_or_equal:today', // Ensures date is not in the future
         ], [
-            'name.alpha' => 'The name may only contain letters.',
             'age.min' => 'The age must be at least 1.',
             'age.max' => 'The age must be a number between 1 and 999.',
             'hired_date.date' => 'Please enter a valid date for the hired date.',
