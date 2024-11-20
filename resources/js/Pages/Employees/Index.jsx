@@ -18,6 +18,7 @@ const Index = () => {
     const [isCreateModalOpen, setCreateModalOpen] = useState(false);
     const [isEditModalOpen, setEditModalOpen] = useState(false);
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [isViewModalOpen, setViewModalOpen] = useState(false);
     const [selectedEmployee, setSelectedEmployee] = useState(null);
 
     const handleSearch = (e) => {
@@ -42,6 +43,11 @@ const Index = () => {
             sort_by: sortBy,
             sort_direction: direction,
         }, { preserveState: true });
+    };
+
+    const openViewModal = (employee) => {
+        setSelectedEmployee(employee);
+        setViewModalOpen(true);
     };
 
     const openEditModal = (employee) => {
@@ -147,9 +153,8 @@ const Index = () => {
                                         {employees.data.map((employee, index) => (
                                             <tr
                                                 key={employee.id}
-                                                className={`hover:bg-blue-50 dark:hover:bg-blue-900 transition duration-300 ease-in-out transform hover:scale-[1.02] ${
-                                                    index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-700'
-                                                }`}
+                                                className={`hover:bg-blue-50 dark:hover:bg-blue-900 transition duration-300 ease-in-out transform hover:scale-[1.02] ${index % 2 === 0 ? 'bg-gray-50 dark:bg-gray-800' : 'bg-white dark:bg-gray-700'
+                                                    }`}
                                             >
                                                 <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{employee.name}</td>
                                                 <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{employee.age}</td>
@@ -159,6 +164,13 @@ const Index = () => {
                                                 <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{new Date(employee.created_at).toLocaleString()}</td>
                                                 <td className="p-4 text-sm text-gray-700 dark:text-gray-200">{new Date(employee.updated_at).toLocaleString()}</td>
                                                 <td className="p-4 flex justify-center space-x-2">
+                                                    <button
+                                                        onClick={() => openViewModal(employee)}
+                                                        className="bg-blue-500 text-white hover:bg-blue-600 transition rounded-full p-2 shadow-md transform hover:scale-105 focus:outline-none"
+                                                        aria-label="View"
+                                                    >
+                                                        <FontAwesomeIcon icon={faSearch} />
+                                                    </button>
                                                     <button
                                                         onClick={() => openEditModal(employee)}
                                                         className="bg-yellow-500 text-white hover:bg-yellow-600 transition rounded-full p-2 shadow-md transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -204,9 +216,37 @@ const Index = () => {
                 <Create onClose={() => setCreateModalOpen(false)} />
             </Modal>
             {selectedEmployee && (
-                <Modal show={isEditModalOpen} onClose={() => setEditModalOpen(false)} maxWidth="md">
-                    <Edit employee={selectedEmployee} onClose={() => setEditModalOpen(false)} />
-                </Modal>
+                <>
+                    <Modal show={isEditModalOpen} onClose={() => setEditModalOpen(false)} maxWidth="md">
+                        <Edit employee={selectedEmployee} onClose={() => setEditModalOpen(false)} />
+                    </Modal>
+                    <Modal show={isViewModalOpen} onClose={() => setViewModalOpen(false)} maxWidth="md">
+                        <div className="p-6 bg-gray-100 dark:bg-gray-800 rounded-md">
+                            <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-200">Employee Details</h2>
+                            <div className="mt-4 space-y-2">
+                                <p className="text-sm text-gray-800 dark:text-gray-200"><strong>Name:</strong> {selectedEmployee.name}</p>
+                                <p className="text-sm text-gray-800 dark:text-gray-200"><strong>Position:</strong> {selectedEmployee.position}</p>
+                                <p className="text-sm text-gray-800 dark:text-gray-200">
+                                    <strong>Hired Date:</strong> {new Date(selectedEmployee.hired_date).toLocaleDateString()}
+                                </p>
+                                <p className="text-sm text-gray-800 dark:text-gray-200">
+                                    <strong>Created At:</strong> {new Date(selectedEmployee.created_at).toLocaleString()}
+                                </p>
+                                <p className="text-sm text-gray-800 dark:text-gray-200">
+                                    <strong>Updated At:</strong> {new Date(selectedEmployee.updated_at).toLocaleString()}
+                                </p>
+                            </div>
+                            <div className="mt-6 flex justify-end">
+                                <button
+                                    onClick={() => setViewModalOpen(false)}
+                                    className="px-4 py-2 bg-gray-700 text-white rounded-full hover:bg-gray-600 transition"
+                                >
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </Modal>
+                </>
             )}
             <Modal show={isDeleteModalOpen} onClose={() => setDeleteModalOpen(false)} maxWidth="sm">
                 <div className="p-6 bg-white dark:bg-gray-800 rounded-md">
