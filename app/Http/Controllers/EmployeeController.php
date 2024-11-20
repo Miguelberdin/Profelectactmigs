@@ -50,7 +50,6 @@ class EmployeeController extends Controller
                 'required',
                 'string',
                 'max:255',
-                'alpha', // Allows only letters
                 function ($attribute, $value, $fail) {
                     if (Employee::whereRaw('LOWER(name) = ?', [strtolower($value)])->exists()) {
                         $fail('An employee with this name already exists. Please use a different name.');
